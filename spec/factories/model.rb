@@ -5,6 +5,9 @@ FactoryBot.define do
     sequence(:public_id) { |n| "model_#{n}" }
     path { Faker::File.dir }
     license { "MIT" }
+    caption { Faker::Lorem.sentence }
+    notes { Faker::Lorem.paragraph }
+    links_attributes { [{url: "http://example.com"}] }
 
     trait :with_tags do
       transient do
@@ -13,7 +16,7 @@ FactoryBot.define do
 
       after(:create) do |model, evaluator|
         evaluator.tags_count.times do |i|
-          model.tag_list.add("tag_#{i}")
+          model.tag_list.add("Tag ##{i}")
         end
         model.save
       end

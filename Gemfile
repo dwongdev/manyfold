@@ -6,7 +6,7 @@ ruby file: ".ruby-version"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.2.2"
 # Use Puma as the app server
-gem "puma", "~> 6.5"
+gem "puma", "~> 6.6"
 # Deliver assets with Propshaft
 gem "propshaft", "~> 1.1"
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
@@ -41,7 +41,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "rspec-rails"
-  gem "standard", "~> 1.44.0"
+  gem "standard", "~> 1.45.0"
   gem "factory_bot"
   gem "faker", "~> 3.5"
   gem "guard", "~> 2.19"
@@ -110,7 +110,7 @@ gem "rack-contrib", "~> 2.5"
 
 gem "rails-i18n", "~> 7.0"
 
-gem "erb_lint", "~> 0.8.0", group: :development, require: false
+gem "erb_lint", "~> 0.9.0", group: :development, require: false
 
 gem "i18n-js", "~> 4.2"
 
@@ -141,14 +141,14 @@ gem "shrine", "~> 3.6"
 gem "tus-server", "~> 2.3"
 gem "shrine-tus", "~> 2.1"
 
-gem "aws-sdk-s3", "~> 1.178"
+gem "aws-sdk-s3", "< 1.181"
 
 gem "better_content_security_policy", "~> 0.1.4"
 
 gem "devise_zxcvbn", "~> 6.0"
 
-gem "ransack", "~> 4.2"
-gem "federails", git: "https://gitlab.com/experimentslabs/federails", branch: "22-data-binding-for-incoming-outgoing-objects"
+gem "ransack", "~> 4.3"
+gem "federails", git: "https://gitlab.com/experimentslabs/federails", branch: "main"
 gem "federails-moderation", "~> 0.2"
 gem "caber"
 
@@ -171,3 +171,5 @@ gem "pghero", "~> 3.6"
 gem "pg_query", "~> 6.0"
 
 gem "get_process_mem", "~> 1.0"
+
+gem "to_regexp", "~> 0.2.1"

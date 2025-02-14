@@ -111,6 +111,21 @@ module ApplicationHelper
     end
   end
 
+  def url_input_row(form, name, options = {})
+    content_tag :div, class: "row mb-3 input-group" do
+      safe_join [
+        form.label(name, options[:label], class: "col-auto col-form-label"),
+        content_tag(:div, class: "col p-0") do
+          safe_join [
+            form.url_field(name, {class: "form-control"}.merge(options)),
+            errors_for(form.object, name),
+            (options[:help] ? content_tag(:span, class: "form-text") { options[:help] } : nil)
+          ].compact
+        end
+      ]
+    end
+  end
+
   def rich_text_input_row(form, name, options = {})
     content_tag :div, class: "row mb-3 input-group" do
       safe_join [
@@ -134,7 +149,8 @@ module ApplicationHelper
           content_tag(:div, class: "form-switch") do
             safe_join [
               form.check_box(name, options.merge(class: "form-check-input form-check-inline")),
-              errors_for(form.object, name)
+              errors_for(form.object, name),
+              (options[:help] ? content_tag(:span, class: "form-text") { options[:help] } : nil)
             ].compact
           end
         end
@@ -205,5 +221,16 @@ module ApplicationHelper
 
   def random_password
     (SecureRandom.base64(32) + "!0aB").chars.shuffle.join
+  end
+
+  def server_indicator(object)
+    actor = object.respond_to?(:federails_actor) ? object.federails_actor : object
+    return if !SiteSettings.federation_enabled? || actor.local?
+    content_tag :small, class: "text-secondary" do
+      safe_join([
+        icon("globe2", t(".remote")),
+        actor.server
+      ], " ")
+    end
   end
 end

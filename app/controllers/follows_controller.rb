@@ -1,16 +1,16 @@
 class FollowsController < ApplicationController
-  before_action :get_target, except: [:index, :new, :remote_follow, :perform_remote_follow, :follow_remote_actor]
+  before_action :get_target, except: [:index, :new, :remote_follow, :perform_remote_follow, :follow_remote_actor, :unfollow_remote_actor]
   skip_after_action :verify_policy_scoped, only: :index
   skip_after_action :verify_authorized, only: [:new, :remote_follow, :perform_remote_follow]
 
   def index
     authorize Federails::Following
-    render :new
+    @followings = policy_scope(Federails::Following).all
   end
 
   # Incoming remote follow
   def new
-    @query = params[:uri].gsub(/\A@/, "")
+    @query = params[:uri]
     @actor = if @query.starts_with?(%r{https?://})
       Federails::Actor.find_by_federation_url @query # rubocop:disable Rails/DynamicFindBy
     else
@@ -46,7 +46,14 @@ class FollowsController < ApplicationController
     authorize Federails::Following, :create?
     @actor = Federails::Actor.find_param(params[:id])
     current_user.follow(@actor)
-    redirect_to root_url, notice: t(".followed", actor: @actor.at_address)
+    redirect_back_or_to root_url, notice: t(".followed", actor: @actor.at_address)
+  end
+
+  def unfollow_remote_actor
+    authorize Federails::Following, :destroy?
+    @actor = Federails::Actor.find_param(params[:id])
+    current_user.unfollow(@actor)
+    redirect_back_or_to root_url, notice: t(".unfollowed", actor: @actor.at_address)
   end
 
   def create

@@ -11,6 +11,10 @@ class Creator < ApplicationRecord
   has_many :models, dependent: :nullify
   validates :name, uniqueness: {case_sensitive: false}
 
+  def name_with_domain
+    remote? ? name + " (#{federails_actor.server})" : name
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
     ["caption", "created_at", "id", "public_id", "name", "notes", "slug", "updated_at"]
   end
@@ -28,17 +32,6 @@ class Creator < ApplicationRecord
   end
 
   def to_activitypub_object
-    {
-      "@context": {
-        toot: "http://joinmastodon.org/ns#",
-        attributionDomains: {
-          "@id": "toot:attributionDomains",
-          "@type": "@id"
-        }
-      },
-      attributionDomains: [
-        [Rails.application.default_url_options[:host], Rails.application.default_url_options[:port]].compact.join(":")
-      ]
-    }
+    ActivityPub::CreatorSerializer.new(self).serialize
   end
 end
