@@ -5,16 +5,29 @@ module ActivityPub
         @object,
         content: to_html,
         custom: {
+          "@context" => [
+            "https://purl.archive.org/miscellany",
+            {
+              f3di: "http://purl.org/f3di/ns#",
+              Hashtag: "as:Hashtag"
+            }
+          ],
           "context" => Rails.application.routes.url_helpers.url_for([@object.commentable, {only_path: false}]),
           "sensitive" => @object.sensitive,
+          "summary" => (@object.sensitive ? "Sensitive Content" : nil), # Adding a summary if sensitive, for Mastodon
           "tag" => hashtags,
           "f3di:compatibilityNote" => @object.system
-        }.merge(address_fields)
+        }.compact.merge(address_fields)
       )
     end
 
     def cc
-      @object.commenter.federails_actor.followers_url
+      [
+        @object.commentable&.federails_actor&.followers_url,
+        @object.commenter&.federails_actor&.followers_url,
+        (@object.commentable&.creator&.federails_actor&.followers_url if @object.commentable.respond_to?(:creator)),
+        (@object.commentable&.collection&.federails_actor&.followers_url if @object.commentable.respond_to?(:collection))
+      ].compact
     end
 
     private
@@ -32,10 +45,12 @@ module ActivityPub
     end
 
     def to_html
-      [
-        Kramdown::Document.new(@object.comment, input: "GFM").to_html,
-        hashtags&.map { |t| %(<a href="#{t[:href]}" class="mention hashtag" rel="tag">#{t[:name]}</a>) }&.join(" ")
-      ].compact.join("\n\n")
+      content = [Kramdown::Document.new(@object.comment, input: "GFM").to_html]
+      tags = hashtags
+      if !tags&.empty?
+        content << "<p role=\"list\">#{tags.map { |t| %(<a role="listitem" href="#{t[:href]}" class="mention hashtag" rel="tag">#{t[:name]}</a>) }&.join(" ")}</p>"
+      end
+      content.join
     end
   end
 end

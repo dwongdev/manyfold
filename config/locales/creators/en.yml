@@ -8,7 +8,6 @@ en:
         label: Show collections by %{name}
         remote_label: Show local collections by %{name}
       delete_button:
-        confirm: Are you sure you want to remove this item? No files will be affected.
         label: Delete creator %{name}
       edit_button:
         label: Edit creator %{name}
@@ -16,12 +15,13 @@ en:
         label: Show models by %{name}
         remote_label: Show local models by %{name}
     destroy:
+      confirm: Are you sure you want to remove this item? No files will be affected.
       success: Creator deleted!
     form:
       notes:
         help_html: You can use <a href="https://www.markdownguide.org/cheat-sheet/" target="markdown">Markdown</a>.
       slug:
-        help: Used in URLs and as Fediverse handle (if enabled).
+        help: Used in URLs and as Fediverse handle (if enabled). Leave blank to autogenerate from name.
     general:
       edit: Edit Creator
       new: New Creator

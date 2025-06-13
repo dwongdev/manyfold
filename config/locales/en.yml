@@ -9,7 +9,7 @@ en:
         notes: Notes
       creator:
         caption: Tagline
-        name: Name
+        name: Creator Name
         notes: Description
         slug: Handle
       doorkeeper/application:
@@ -310,6 +310,10 @@ en:
       skip_tags: Skip tag list
     title: Manyfold
   components:
+    altcha_widget:
+      help: privacy-friendly spam protection by ALTCHA
+    copy_button:
+      copy: Copy to Clipboard
     download_button:
       download:
         missing: Request download
@@ -554,13 +558,25 @@ en:
       zero: "%{count} Followers"
     menu: Menu
     new: New
+    public: Public
     report: Report %{type}
     save: Save
     view: View
+    visibility: Visibility
   home:
     activity:
       created: added %{time} ago
       updated: updated %{time} ago
+    browsing:
+      content: You can explore models by clicking the links in the menu bar; browse a complete list and filter by tag, or browse by collection or creator. Alternatively just type into the search box to find what you want!
+      manual_link: User guide
+      more_access: Currently you have read-only access to this instance; to get more permissions, such as uploading, contact your instance administrator.
+      title: Browsing
+    federation:
+      content_html: This Manyfold instance is part of the <a href="https://jointhefediverse.net">Fediverse</a>, a network of social media sites that all work together. That means that if you have an account here, you can follow content on other Manyfold instances, or people can follow your content from other platforms like Mastodon.
+      following: If you know the handle of someone or something you want to follow, just enter it in the search box; otherwise, enter your personal handle above when you follow something on another instance.
+      handle_html: 'Your fediverse handle is: <code>%{handle}</code>'
+      title: Federation
     index:
       no_activities: There are no activities to display for now.
       open_search_help: Search syntax
@@ -568,10 +584,38 @@ en:
       search:
         placeholder: What are you looking for?
         submit: Search
+    publishing:
+      content: You can publish content publicly by giving "view" or "preview" permission to the "public" role on the item's edit page. Note that creators, collections and models all have their own permissions, so will need to be set public separately if you want them to be visible.
+      new_creator:
+        button: Set up a new creator profile
+        content: 'If you''re publishing your own work, you will probably want to set up your own creator profile and make it public:'
+      title: Publishing
+    support:
+      content: Manyfold instances are run by people like you! If you find this instance useful, you can help keep it running by clicking below.
+      manyfold_html: To support development of the Manyfold software itself, you can do so at <a href="https://opencollective.com/manyfold">OpenCollective</a>.
+      support_link: Support this instance
+      title: Support
+    uploading:
+      how_to_upload: You can add models by clicking the upload button in the menu bar. To upload lots of files as a single model, compress them in a single archive file (e.g. ZIP or RAR).
+      permissions:
+        edit: You can grant additional permissions on the item's edit page.
+        member: By default, uploaded content will be visible to any local logged-in user.
+        private: By default, uploaded content will not be visible to any other users.
+      title: Uploading
+      upload: Upload
+    welcome:
+      lead: This site is running Manyfold, software for managing and sharing 3D models; here's a quick guide...
+      title: Welcome to %{site_name}!
   jobs:
     activity:
-      creator_added_model:
-        comment: 'I''ve just added a new model: ["%{model_name}"](%{url})'
+      collection_published:
+        comment: A new collection of 3D models, ["%{name}"](%{url}), was just published!
+      model_collected:
+        comment: '["%{model_name}"](%{model_url}) was just added to the ["%{collection_name}"](%{collection_url}) collection.'
+      model_published:
+        comment: A new 3D model, ["%{name}"](%{url}), was just published!
+      updated_model:
+        comment: The 3D model ["%{name}"](%{url}), was just updated!
     analysis:
       analyse_model_file:
         detect_duplicates: Detecting duplicate files
@@ -683,6 +727,10 @@ en:
     test_email:
       subject: Test email
       test_email_message: Test email
+  users:
+    registrations:
+      create:
+        altcha_failed: ALTCHA verification failed
   views:
     pagination:
       first: "« First"

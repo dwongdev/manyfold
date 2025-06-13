@@ -41,6 +41,24 @@
       <small><%= t(".approve_signups.help") %></small>
     </div>
   </div>
+  <div class="row">
+    <%= form.label nil, t(".autocreate_creator.label"), for: "multiuser[autocreate_creator_for_new_users]", class: "col-sm-4 col-form-label" %>
+    <div class="col-sm-8 form-check form-switch">
+      <%= form.check_box "multiuser[autocreate_creator_for_new_users]", checked: SiteSettings.autocreate_creator_for_new_users, class: "form-check-input" %>
+      <small><%= t(".autocreate_creator.help") %></small>
+    </div>
+  </div>
+  <div class="row">
+    <%= form.label nil, t(".default_signup_role.label"), for: "multiuser[default_signup_role]", class: "col-sm-4 col-form-label" %>
+    <div class="col-sm-8">
+      <%= form.select "multiuser[default_signup_role]",
+            [[translate(".default_signup_role.options.member"), "member"],
+              [translate(".default_signup_role.options.contributor"), "contributor"]],
+            {selected: SiteSettings.default_signup_role},
+            {class: "form-select"} %>
+      <small><%= t(".default_signup_role.help") %></small>
+    </div>
+  </div>
   <hr>
 
   <h3><%= t(".permissions") %></h3>
@@ -48,9 +66,9 @@
     <%= form.label nil, t(".default_viewer_role.label"), for: "multiuser[default_viewer_role]", class: "col-sm-4 col-form-label" %>
     <div class="col-sm-8">
       <%= form.select "multiuser[default_viewer_role]",
-            [[translate(".default_viewer_role.options.none"), nil],
+            [[translate(".default_viewer_role.options.none"), ""],
               [translate(".default_viewer_role.options.member"), "member"]],
-            {selected: SiteSettings.default_viewer_role},
+            {selected: SiteSettings.default_viewer_role.to_s},
             {class: "form-select"} %>
       <small><%= t(".default_viewer_role.help") %></small>
     </div>
