@@ -3,6 +3,7 @@ require "sidekiq/cron/web"
 require "federails"
 
 Rails.application.routes.draw do
+  get "/altcha", to: "altcha#new"
   get ".well-known/change-password", to: redirect("/users/edit")
   get "health" => "rails/health#show", :as => :rails_health_check
   get "problems/index"
@@ -60,6 +61,10 @@ Rails.application.routes.draw do
 
   root to: "home#index"
   get "/about", to: "home#about", as: :about
+
+  authenticate :user do
+    get "/welcome", to: "home#welcome", as: :welcome
+  end
 
   resources :libraries, except: [:index] do
     member do

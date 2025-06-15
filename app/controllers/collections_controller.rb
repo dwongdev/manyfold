@@ -60,14 +60,10 @@ class CollectionsController < ApplicationController
   def new
     authorize Collection
     @collection = Collection.new
-    @collection.links.build if @collection.links.empty? # populate empty link
-    @collection.caber_relations.build if @collection.caber_relations.empty?
     @title = t("collections.general.new")
   end
 
   def edit
-    @collection.links.build if @collection.links.empty? # populate empty link
-    @collection.caber_relations.build if @collection.caber_relations.empty?
   end
 
   def create
@@ -75,11 +71,15 @@ class CollectionsController < ApplicationController
     @collection = Collection.create(collection_params.merge(Collection.caber_owner(current_user)))
     respond_to do |format|
       format.html do
-        if session[:return_after_new]
-          redirect_to session[:return_after_new] + "?new_collection=#{@collection.to_param}", notice: t(".success")
-          session[:return_after_new] = nil
+        if @collection.valid?
+          if session[:return_after_new]
+            redirect_to session[:return_after_new] + "?new_collection=#{@collection.to_param}", notice: t(".success")
+            session[:return_after_new] = nil
+          else
+            redirect_to collections_path, notice: t(".success")
+          end
         else
-          redirect_to collections_path, notice: t(".success")
+          render :new, status: :unprocessable_entity
         end
       end
       format.manyfold_api_v0 do
@@ -96,7 +96,11 @@ class CollectionsController < ApplicationController
     @collection.update(collection_params)
     respond_to do |format|
       format.html do
-        redirect_to collections_path, notice: t(".success")
+        if @collection.valid?
+          redirect_to collections_path, notice: t(".success")
+        else
+          render :edit, status: :unprocessable_entity
+        end
       end
       format.manyfold_api_v0 do
         if @collection.valid?
@@ -132,12 +136,13 @@ class CollectionsController < ApplicationController
 
   def get_creators
     # Creators that we can assign this collection to
-    @creators = policy_scope(Creator, policy_scope_class: ApplicationPolicy::UpdateScope).order("LOWER(name) ASC")
+    @creators = policy_scope(Creator, policy_scope_class: ApplicationPolicy::UpdateScope).local.order("LOWER(creators.name) ASC")
+    @default_creator = @creators.first if @creators.count == 1
   end
 
   def get_parent_collections
     # Collection that we can add this one to
-    @collections = policy_scope(Collection, policy_scope_class: ApplicationPolicy::UpdateScope).order("LOWER(name) ASC")
+    @collections = policy_scope(Collection, policy_scope_class: ApplicationPolicy::UpdateScope).local.order("LOWER(collections.name) ASC")
   end
 
   def collection_params

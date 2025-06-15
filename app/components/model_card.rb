@@ -7,11 +7,10 @@ class Components::ModelCard < Components::Base
 
   register_output_helper :status_badges
   register_output_helper :server_indicator
+  register_value_helper :policy
 
-  def initialize(model:, can_edit: false, can_destroy: false)
+  def initialize(model:)
     @model = model
-    @can_destroy = can_destroy
-    @can_edit = can_edit
   end
 
   def view_template
@@ -32,7 +31,12 @@ class Components::ModelCard < Components::Base
       a "data-editable-field": "model[name]", "data-editable-path": model_path(@model), contenteditable: "plaintext-only", "data-controller": "editable", "data-action": "focus->editable#onFocus blur->editable#onBlur" do
         @model.name
       end
-      Icon(icon: "explicit", label: Model.human_attribute_name(:sensitive)) if @model.sensitive
+      if @model.sensitive
+        whitespace
+        Icon(icon: "explicit", label: Model.human_attribute_name(:sensitive))
+      end
+      whitespace
+      AccessIndicator(object: @model)
     end
   end
 
@@ -50,19 +54,28 @@ class Components::ModelCard < Components::Base
 
   def credits
     ul class: "list-unstyled" do
-      if @model.creator
-        li do
-          Icon icon: "person", label: Creator.model_name.human
-          link_to @model.creator.name, @model.creator, "aria-label": [Creator.model_name.human, @model.creator.name].join(": ")
+      if @model.remote?
+        if (creator = @model.federails_actor.extensions["attributedTo"])
+          li { creator target: creator["url"], name: creator["name"] }
         end
-      end
-      if @model.collection
-        li do
-          Icon icon: "collection", label: @model.collection.model_name.human
-          link_to @model.collection.name, @model.collection, "aria-label": [@model.collection.model_name.human, @model.collection.name].join(": ")
+        if (collection = @model.federails_actor.extensions["context"])
+          li { collection target: collection["url"], name: collection["name"] }
         end
+      else
+        li { creator target: @model.creator, name: @model.creator.name } if @model.creator
+        li { collection target: @model.collection, name: @model.collection.name } if @model.collection
       end
     end
+  end
+
+  def creator(target:, name:)
+    Icon icon: "person", label: Creator.model_name.human
+    link_to name, target, "aria-label": [Creator.model_name.human, name].join(": ")
+  end
+
+  def collection(target:, name:)
+    Icon icon: "collection", label: Collection.model_name.human
+    link_to name, target, "aria-label": [Collection.model_name.human, name].join(": ")
   end
 
   def caption
@@ -97,8 +110,8 @@ class Components::ModelCard < Components::Base
         end
         div class: "col col-auto" do
           BurgerMenu do
-            DropdownItem(icon: "pencil", label: t("components.model_card.edit_button.text"), path: edit_model_path(@model), aria_label: translate("components.model_card.edit_button.label", name: @model.name)) if @can_edit
-            DropdownItem(icon: "trash", label: t("components.model_card.delete_button.text"), path: model_path(@model), method: :delete, aria_label: translate("components.model_card.delete_button.label", name: @model.name), confirm: translate("models.destroy.confirm")) if @can_destroy
+            DropdownItem(icon: "pencil", label: t("components.model_card.edit_button.text"), path: edit_model_path(@model), aria_label: translate("components.model_card.edit_button.label", name: @model.name)) if policy(@model).edit?
+            DropdownItem(icon: "trash", label: t("components.model_card.delete_button.text"), path: model_path(@model), method: :delete, aria_label: translate("components.model_card.delete_button.label", name: @model.name), confirm: translate("models.destroy.confirm")) if policy(@model).destroy?
             DropdownItem(icon: "flag", label: t("general.report", type: ""), path: new_model_report_path(@model)) if SiteSettings.multiuser_enabled?
           end
         end

@@ -62,7 +62,7 @@ class ModelFilesController < ApplicationController
           current_user.set_list_state(@file, :printed, params[:model_file][:printed] === "1")
           redirect_to [@model, @file], notice: t(".success")
         else
-          render :edit, alert: t(".failure")
+          render :edit, alert: t(".failure"), status: :unprocessable_entity
         end
       end
       format.manyfold_api_v0 do
@@ -165,6 +165,7 @@ class ModelFilesController < ApplicationController
         @file = scope.find_param(params[:id])
       rescue ActiveRecord::RecordNotFound
         @file = scope.find_by!(filename: [params[:id], params[:format]].join("."))
+        request.format = params[:format].downcase
       end
       authorize @file
     end

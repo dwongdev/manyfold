@@ -11,6 +11,7 @@
         <div class="col">
           <div class="card-title">
             <%= collection.name.careful_titleize %>
+            <%= render Components::AccessIndicator.new object: collection %>
           </div>
           <% if collection.caption %>
             <span class="card-subtitle mb-2 text-muted"><%= sanitize collection.caption %></span>
@@ -20,17 +21,32 @@
         <div class="col col-auto">
           <small>
             <ul class="list-unstyled">
-              <% if collection.creator %>
-                <li>
-                  <%= icon "person", Creator.model_name.human %>
-                  <%= link_to collection.creator.name, "collections?creator=" + collection.creator.to_param, @filters || {} %><br>
-                </li>
-              <% end %>
-              <% if collection.collection %>
-                <li>
-                  <%= icon "collection", Collection.model_name.human %>
-                  <%= link_to collection.collection.name, collection, @filters || {} %><br>
-                </li>
+              <% if collection.remote? %>
+                <% if (creator = collection.federails_actor.extensions["attributedTo"]) %>
+                  <li>
+                    <%= icon "person", Creator.model_name.human %>
+                    <%= link_to creator["name"], creator["url"] %><br>
+                  </li>
+                <% end %>
+                <% if (c = collection.federails_actor.extensions["context"]) %>
+                  <li>
+                    <%= icon "collection", Collection.model_name.human %>
+                    <%= link_to c["name"], c["url"] %><br>
+                  </li>
+                <% end %>
+              <% else %>
+                <% if collection.creator %>
+                  <li>
+                    <%= icon "person", Creator.model_name.human %>
+                    <%= link_to collection.creator.name, "collections?creator=" + collection.creator.to_param, @filters || {} %><br>
+                  </li>
+                <% end %>
+                <% if collection.collection %>
+                  <li>
+                    <%= icon "collection", Collection.model_name.human %>
+                    <%= link_to collection.collection.name, collection, @filters || {} %><br>
+                  </li>
+                <% end %>
               <% end %>
             </ul>
           </small>
@@ -66,7 +82,7 @@
         <div class='col col-auto'>
           <%= render Components::BurgerMenu.new do %>
             <%= render Components::DropdownItem.new(icon: "pencil", label: translate("general.edit"), path: edit_collection_path(collection), aria_label: translate(".edit_button.label", name: collection.name)) if policy(collection).edit? %>
-            <%= render Components::DropdownItem.new(icon: "trash", label: translate("general.delete"), path: collection_path(collection), method: :delete, aria_label: translate(".delete_button.label", name: collection.name), confirm: t(".delete_button.confirm")) if policy(collection).destroy? %>
+            <%= render Components::DropdownItem.new(icon: "trash", label: translate("general.delete"), path: collection_path(collection), method: :delete, aria_label: translate(".delete_button.label", name: collection.name), confirm: t("collections.destroy.confirm")) if policy(collection).destroy? %>
             <%= render Components::DropdownItem.new(icon: "flag", label: translate("general.report", type: ""), path: new_collection_report_path(collection)) if SiteSettings.multiuser_enabled? %>
           <% end %>
         </div>

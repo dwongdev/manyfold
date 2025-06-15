@@ -4,12 +4,18 @@ fr:
     create:
       success: Détails du nouveau créateur sauvegardés.
     creator:
+      collections_button:
+        label:
+        remote_label:
+      delete_button:
+        label:
       edit_button:
         label: Modifier le créateur %{name}
       models_button:
         label: Afficher les modèles par %{name}
         remote_label: Afficher les modèles locaux de %{name}
     destroy:
+      confirm:
       success: Créateur supprimé !
     form:
       notes:

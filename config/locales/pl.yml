@@ -18,7 +18,7 @@ pl:
         created_at: Utworzony
         name: Nazwa
         owner: Właściciel
-        redirect_uri:
+        redirect_uri: Przekierowanie URI
         scopes:
         secret:
         uid:
@@ -103,6 +103,7 @@ pl:
         unconfirmed_email: Niepotwierdzony adres e-mail
         unlock_token: Token odblokowywujący
         updated_at: Data uaktualnienia
+        username:
     errors:
       models:
         doorkeeper/application:
@@ -119,8 +120,8 @@ pl:
         library:
           attributes:
             path:
-              cannot_be_contained:
-              cannot_contain:
+              cannot_be_contained: nie może znajdować się wewnątrz innej biblioteki
+              cannot_contain: nie może zawierać innych bibliotek
               non_writable:
               not_found: nie można znaleźć na dysku
               unsafe:
@@ -238,11 +239,12 @@ pl:
       permissions:
         edit: Może edytować
         own: Właściciel (może wyświetlać, edytować, usuwać i udostępniać)
+        preview:
         view: Wyświetlaj tylko
       subject:
-        placeholder: Adres e-mail, nazwa użytkownika albo rola
+        placeholder: Adres e-mail, nazwa konta albo rola
         role:
-          member: Dowolny zalogowany lokalny użytkownik
+          member: Dowolne zalogowane lokalne konto
           public: Wszyscy (bez logowania)
         you: "(ty)"
     caber_relations_form:
@@ -281,7 +283,7 @@ pl:
     navbar:
       account: Moje Ustawienia
       activity: Aktywność
-      check_existing: Sprawdź istniejące modele
+      check_existing: Ponownie zeskanuj istniejące modele
       home: Strona główna
       log_in: Zaloguj się
       log_out: Wyloguj się
@@ -298,6 +300,7 @@ pl:
       sort:
         name: Sortuj według nazwy
         time: Sortuj według czasu
+    search_error:
     tag_list:
       unrelated_tag_count:
         one: "%{count} niepowiązany tag ukryty"
@@ -307,7 +310,15 @@ pl:
       skip_tags: Pomiń listę tagów
     title: Manyfold
   components:
+    altcha_widget:
+      help:
+    copy_button:
+      copy: Kopiuj do schowka
     download_button:
+      download:
+        missing:
+        preparing:
+        ready: Gotowe do pobrania
       file_type: Tylko Pliki %{type}
       label: Pobierz Wszystko
       menu_header: Opcje Pobierania
@@ -317,6 +328,8 @@ pl:
       follow: Obserwuj %{name}
       pending: Żądane
       unfollow: Przestań obserwować %{name}
+    modal:
+      close: Zamknij
     model_card:
       delete_button:
         label: Usuń model %{name}
@@ -328,20 +341,35 @@ pl:
       open_button:
         label: Otwórz model %{name}
         text: Otwórz
+    search_help:
+      boolean: Użyj "or", aby znaleźć modele pasujące do któregokolwiek z terminów.
+      federation: Wyszukaj dowolną nazwę użytkownika Fediverse, aby ją zaobserwować.
+      filename:
+      intro:
+      more_details_html:
+      negation: Aby wykluczyć terminy, użyj "not", "!" lub "-".
+      parentheses:
+      quotes:
+      simple:
+      specific_fields:
+      tag:
+      title: Składnia Wyszukiwania
+      unset:
+      without_tag:
   doorkeeper:
     applications:
       buttons:
-        authorize:
-        cancel:
-        destroy:
+        authorize: Autoryzuj
+        cancel: Anuluj
+        destroy: Zniszcz
         edit: Edytuj
         submit:
       confirmations:
         destroy: Jesteś pewny?
       edit:
-        title:
+        title: Edytuj aplikację
       form:
-        error:
+        error: Ups! Sprawdź swój formularz pod kątem możliwych błędów
       help:
         blank_redirect_uri:
         confidential:
@@ -352,47 +380,47 @@ pl:
         callback_url:
         confidential:
         confidentiality:
-          'no':
-          'yes':
+          'no': Nie
+          'yes': Tak
         name: Nazwa
-        new:
-        title:
+        new: Nowa Aplikacja
+        title: Twoje aplikacje
       new:
-        title:
+        title: Nowa Aplikacja
       show:
         actions: Akcje
-        application_id:
+        application_id: UID
         callback_urls:
         confidential:
-        not_defined:
+        not_defined: Nie zdefiniowane
         scopes:
-        secret:
-        secret_hashed:
-        title:
+        secret: Sekret
+        secret_hashed: Zhaszowany sekret
+        title: 'Aplikacja: %{name}'
     authorizations:
       buttons:
-        authorize:
-        deny:
+        authorize: Autoryzuj
+        deny: Odmów
       error:
-        title:
+        title: Wystąpił błąd
       form_post:
-        title:
+        title: Prześlij ten formularz
       new:
-        able_to:
-        prompt:
-        title:
+        able_to: Aplikacja ta będzie w stanie
+        prompt: Autoryzować %{client_name} do zkorzystania z twojego konta?
+        title: Wymagana autoryzacja
       show:
-        title:
+        title: Kod autoryzacji
     authorized_applications:
       buttons:
         revoke:
       confirmations:
         revoke: Jesteś pewny?
       index:
-        application:
+        application: Aplikacja
         created_at:
-        date_format:
-        title:
+        date_format: "%Y-%m-%d %H:%M:%S"
+        title: Twoje autoryzowane aplikacje
     errors:
       messages:
         access_denied:
@@ -440,12 +468,12 @@ pl:
     layouts:
       admin:
         nav:
-          applications:
-          home:
-          oauth2_provider:
-        title:
+          applications: Aplikacje
+          home: Strona główna
+          oauth2_provider: Dostawca OAuth2
+        title: Doorkeeper
       application:
-        title:
+        title: Wymagana autoryzacja OAuth
     pre_authorization:
       status:
   doorkeeper_applications:
@@ -486,9 +514,9 @@ pl:
     follow_remote_actor:
       followed: Pomyślnie zaczęto obserwować %{actor}
     index:
-      followers:
-      following:
-      title: Obserwowane
+      followers: Obserwujący
+      following: Obserwowane
+      title: Połączenia
     new:
       help: Możesz obserwować publicznych twórców, kolekcje lub modele na innym serwerze Manyfold, a nawet każde publiczne konto w Fediversie! Wystarczy, że wpiszesz nazwę konta w polu wyszukiwania!
       no_results: Przepraszamy, nie mogliśmy znaleźć niczego dla "%{query}". Czy jest to prawidłowe konto ActivityPub lub adres URL?
@@ -519,23 +547,64 @@ pl:
       zero:
     menu: Menu
     new: Nowy
+    public:
     report: Zgłoś %{type}
     save: Zapisz
     view: Widok
+    visibility:
   home:
     activity:
       created: dodane %{time} temu
       updated: zaktualizowane %{time} temu
+    browsing:
+      content:
+      manual_link:
+      more_access:
+      title:
+    federation:
+      content_html:
+      following:
+      handle_html:
+      title:
     index:
       no_activities: Na razie nie ma żadnych aktywności do wyświetlenia.
+      open_search_help: Składnia wyszukiwania
       recent_activity: Ostatnia Aktywność
       search:
         placeholder: Czego szukasz?
         submit: Wyszukaj
+    publishing:
+      content:
+      new_creator:
+        button:
+        content:
+      title:
+    support:
+      content:
+      manyfold_html:
+      support_link: Wesprzyj tą instancje
+      title:
+    uploading:
+      how_to_upload:
+      permissions:
+        edit:
+        member:
+        private:
+      title:
+      upload: Prześlij
+    welcome:
+      lead:
+      title:
   jobs:
     activity:
-      creator_added_model:
-        comment: 'Właśnie dodałem(-am) nowy model: ["%{model_name}"](%{url})'
+      collection_published:
+        comment: Nowa kolekcja modeli 3D ["%{name}"](%{url}) została właśnie opublikowana!
+      model_collected:
+        comment: '["%{model_name}"](%{model_url}) został właśnie dodany do kolekcji ["%{collection_name}"](%{collection_url}).'
+      model_published:
+        comment: Nowy model 3D ["%{name}"](%{url}) został właśnie opublikowany!
+      updated_model:
+        comment: Model 3D ["%{name}"](%{url}) został właśnie zaktualizowany!
     analysis:
       analyse_model_file:
         detect_duplicates: Wykrywanie zduplikowanych plików
@@ -582,6 +651,7 @@ pl:
     settings:
       activeadmin: Zaawansowana Administracja
       appearance: Wygląd
+      downloads: Pobrane
       libraries: Biblioteki
       organization: Organizacja
       performance: Pulpit Wydajności
@@ -629,15 +699,15 @@ pl:
     cgtrader: CGTrader
     comicsgamesandthings: Comics, Games, and Things
     cults3d: Cults3D
-    github:
-    makerworld:
+    github: GitHub
+    makerworld: MakerWorld
     manyfold: Manyfold
     myminifactory: MyMiniFactory
-    printables:
-    thangs:
+    printables: Printables
+    thangs: Thangs
     theminiindex: The Mini Index
     thingiverse: Thingiverse
-    yeggi:
+    yeggi: yeggi
   user_mailer:
     account_approved:
       greeting: Cześć!
@@ -646,6 +716,10 @@ pl:
     test_email:
       subject: Testowy email
       test_email_message: Testowy email
+  users:
+    registrations:
+      create:
+        altcha_failed:
   views:
     pagination:
       first: "« Pierwsza"

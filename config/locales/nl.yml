@@ -103,6 +103,7 @@ nl:
         unconfirmed_email: Onbevestigde e-mail
         unlock_token: Ontgrendelingstoken
         updated_at: Bijgewerkt op
+        username:
     errors:
       models:
         doorkeeper/application:
@@ -238,6 +239,7 @@ nl:
       permissions:
         edit: Kan bewerken
         own: Eigenaar (kan bekijken, bewerken, verwijderen en delen)
+        preview:
         view: Alleen bekijken
       subject:
         placeholder: E-mailadres, gebruikersnaam of rol
@@ -298,6 +300,7 @@ nl:
       sort:
         name: Sorteren op Naam
         time: Sorteren op Tijd
+    search_error:
     tag_list:
       unrelated_tag_count:
         one: "%{count} ongerelateerde tag verborgen"
@@ -307,7 +310,15 @@ nl:
       skip_tags: Taglijst overslaan
     title: Manyfold
   components:
+    altcha_widget:
+      help:
+    copy_button:
+      copy:
     download_button:
+      download:
+        missing:
+        preparing:
+        ready:
       file_type: Alleen %{type} Bestanden
       label: Alles Downloaden
       menu_header: Download Opties
@@ -317,6 +328,8 @@ nl:
       follow: Volg %{name}
       pending:
       unfollow: Ontvolg %{name}
+    modal:
+      close:
     model_card:
       delete_button:
         label: Verwijder model %{name}
@@ -328,6 +341,21 @@ nl:
       open_button:
         label: Open model %{name}
         text: Openen
+    search_help:
+      boolean:
+      federation:
+      filename:
+      intro:
+      more_details_html:
+      negation:
+      parentheses:
+      quotes:
+      simple:
+      specific_fields:
+      tag:
+      title:
+      unset:
+      without_tag:
   doorkeeper:
     applications:
       buttons:
@@ -530,23 +558,64 @@ nl:
       zero:
     menu: Menu
     new: Nieuw
+    public:
     report: Rapporteer %{type}
     save: Opslaan
     view: Bekijken
+    visibility:
   home:
     activity:
       created:
       updated:
+    browsing:
+      content:
+      manual_link:
+      more_access:
+      title:
+    federation:
+      content_html:
+      following:
+      handle_html:
+      title:
     index:
       no_activities: Er zijn momenteel geen activiteiten om weer te geven.
+      open_search_help:
       recent_activity: Recente Activiteit
       search:
         placeholder: Waar zoek je naar?
         submit: Zoeken
+    publishing:
+      content:
+      new_creator:
+        button:
+        content:
+      title:
+    support:
+      content:
+      manyfold_html:
+      support_link:
+      title:
+    uploading:
+      how_to_upload:
+      permissions:
+        edit:
+        member:
+        private:
+      title:
+      upload: Uploaden
+    welcome:
+      lead:
+      title:
   jobs:
     activity:
-      creator_added_model:
-        comment: 'Ik heb net een nieuw model toegevoegd: ["%{model_name}"](%{url})'
+      collection_published:
+        comment:
+      model_collected:
+        comment:
+      model_published:
+        comment:
+      updated_model:
+        comment:
     analysis:
       analyse_model_file:
         detect_duplicates: Dubbele bestanden detecteren
@@ -593,6 +662,7 @@ nl:
     settings:
       activeadmin: Geavanceerd Beheer
       appearance:
+      downloads:
       libraries: Bibliotheken
       organization: Organisatie
       performance: Prestatie Dashboard
@@ -657,6 +727,10 @@ nl:
     test_email:
       subject: Testmail
       test_email_message: Testmail
+  users:
+    registrations:
+      create:
+        altcha_failed:
   views:
     pagination:
       first: "« Eerste"

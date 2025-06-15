@@ -3,7 +3,7 @@ class Settings::UsersController < ApplicationController
   respond_to :html
 
   def index
-    @users = policy_scope(Federails::Actor).where(entity_type: "User").where.not(entity_id: nil).includes(entity: [:roles])
+    @users = policy_scope(Federails::Actor).where(entity_type: "User", tombstoned_at: nil).where.not(entity_id: nil).includes(entity: [:roles])
     render layout: "settings"
   end
 
@@ -36,7 +36,7 @@ class Settings::UsersController < ApplicationController
       @user.send_reset_password_instructions if SiteSettings.email_configured?
       redirect_to [:settings, @user], notice: t(".success")
     else
-      render "new", layout: "settings", status: :unprocessable_entity
+      render :new, layout: "settings", status: :unprocessable_entity
     end
   end
 
@@ -51,7 +51,7 @@ class Settings::UsersController < ApplicationController
     elsif @user.update(user_params)
       redirect_to [:settings, @user], notice: t(".success")
     else
-      render "edit", layout: "settings", status: :unprocessable_entity
+      render :edit, layout: "settings", status: :unprocessable_entity
     end
   end
 

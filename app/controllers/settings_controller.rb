@@ -34,11 +34,16 @@ class SettingsController < ApplicationController
     return unless settings
     SiteSettings.site_name = settings[:site_name]
     SiteSettings.site_tagline = settings[:site_tagline]
-    SiteSettings.site_icon = settings[:site_icon]
     SiteSettings.theme = settings[:theme]
     SiteSettings.about = settings[:about]
     SiteSettings.rules = settings[:rules]
     SiteSettings.support_link = settings[:support_link]
+    SiteSettings.site_icon = begin
+      URI.parse(settings[:site_icon])
+      settings[:site_icon]
+    rescue URI::InvalidURIError
+      nil
+    end
   end
 
   def update_library_settings(settings)
@@ -64,7 +69,9 @@ class SettingsController < ApplicationController
     return unless settings
     SiteSettings.registration_enabled = (settings[:registration_open])
     SiteSettings.approve_signups = (settings[:approve_signups])
-    SiteSettings.default_viewer_role = (settings[:default_viewer_role].presence)
+    SiteSettings.default_signup_role = settings[:default_signup_role]
+    SiteSettings.autocreate_creator_for_new_users = settings[:autocreate_creator_for_new_users]
+    SiteSettings.default_viewer_role = settings[:default_viewer_role]
     SiteSettings.enable_user_quota = (settings[:enable_user_quota].presence)
     SiteSettings.default_user_quota = (settings[:default_user_quota].to_i * 1.megabyte)
   end

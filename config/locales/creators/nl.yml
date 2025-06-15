@@ -4,12 +4,18 @@ nl:
     create:
       success: Nieuwe makerdetails opgeslagen.
     creator:
+      collections_button:
+        label:
+        remote_label:
+      delete_button:
+        label:
       edit_button:
         label: Bewerk maker %{name}
       models_button:
         label: Toon modellen van %{name}
         remote_label:
     destroy:
+      confirm:
       success: Maker verwijderd!
     form:
       notes:

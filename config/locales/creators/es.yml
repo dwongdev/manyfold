@@ -4,12 +4,18 @@ es:
     create:
       success: Nuevos detalles del creador guardados.
     creator:
+      collections_button:
+        label: Mostrar colecciones por %{name}
+        remote_label: Mostrar colecciones locales por %{name}
+      delete_button:
+        label: Borrar creador %{name}
       edit_button:
         label: Editar creador %{name}
       models_button:
         label: Mostrar modelos de %{name}
         remote_label: Mostrar modelos locales por %{name}
     destroy:
+      confirm: "¿Está seguro de que desea eliminar este elemento? Ningún archivo se verá afectado."
       success: "¡Creador eliminado!"
     form:
       notes:

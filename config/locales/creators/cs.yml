@@ -4,12 +4,18 @@ cs:
     create:
       success: Detaily nového autora uloženy.
     creator:
+      collections_button:
+        label:
+        remote_label:
+      delete_button:
+        label:
       edit_button:
         label: Upravit autora%{name}
       models_button:
         label: Zobrazit modely podle %{name}
         remote_label: Zobrazit lokální modely podle %{name}
     destroy:
+      confirm:
       success: Autor smazán!
     form:
       notes:

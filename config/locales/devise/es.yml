@@ -8,9 +8,7 @@ es:
       send_instructions: Vas a recibir un correo con instrucciones sobre cómo confirmar tu cuenta en unos minutos.
       send_paranoid_instructions: Si tu correo existe en nuestra base de datos, en unos minutos recibirás un correo con instrucciones sobre cómo confirmar tu cuenta.
     failure:
-      already_authenticated: 'Ya estás registrado.
-
-        '
+      already_authenticated: Ya estás registrado.
       inactive: Tu cuenta aún no ha sido activada.
       invalid: "%{authentication_keys} o contraseña incorrectos."
       last_attempt: Tienes un intento más antes de que tu cuenta quede bloqueada.
@@ -77,7 +75,7 @@ es:
         danger_zone: "¡Zona peligrosa!"
         leave_blank_if_you_don_t_want_to_change_it: dejar en blanco si no desea modificarlo
         security: Seguridad
-        social:
+        social: Social
         submit: Guardar cambios
         title: Configuración de la cuenta
         unhappy: "¿Descontento?"
@@ -110,10 +108,19 @@ es:
           show: Mostrar como normal
       new:
         approval_help: Después de crear tu cuenta, será revisada manualmente por nuestros moderadores. Te avisaremos cuando se haya aprobado y puedas iniciar sesión.
+        creators:
+          name:
+            help:
+            label:
+          slug:
+            help:
+            help_fedi:
         details: Sus datos
         rules: Normas del servidor
         rules_agree: Al crear una cuenta, acepta cumplir las normas anteriores.
         sign_up: Registrarse
+        username:
+          help:
       pagination_settings:
         collections:
           label: Paginar colecciones
@@ -157,6 +164,7 @@ es:
           label: Estilo de renderizado
           lambert: Sombreado realista
           normals: Dirección de la superficie
+          original: Original (de archivo)
           shadowed: Realista con sombras
         show_grid:
           label: Mostrar plano de tierra
@@ -171,8 +179,8 @@ es:
         keypair:
           label: Utilizar delimitadores para representar pares de claves
         sorting:
-          alphabetical:
-          frequency:
+          alphabetical: alfabético
+          frequency: frecuencia
           label: Ordenar
         threshold:
           label: Número mínimo de etiquetas para la visualización

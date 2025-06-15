@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  rate_limit to: 3, within: 2.minutes, only: :create
+
   before_action :random_delay, only: [:create, :cancel]
   before_action :configure_sign_up_params, only: [:create]
   before_action :detect_if_first_use, only: [:edit, :update]
@@ -27,11 +29,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /users
   def create
     authorize User
-    super do |user|
-      user.update(approved: false) if SiteSettings.approve_signups
-    end
-    if @user.persisted?
-      ModeratorMailer.with(user: @user).new_approval.deliver_later if SiteSettings.approve_signups && SiteSettings.email_configured?
+    if AltchaSolution.verify_and_save(params.permit(:altcha)[:altcha])
+      super do |user|
+        opts = {}
+        opts [:approved] = false if SiteSettings.approve_signups
+        creator_username = params.dig(:user, :creators_attributes, "0", :slug)
+        opts [:username] ||= "u;#{creator_username}" if SiteSettings.autocreate_creator_for_new_users && creator_username
+        opts.compact!
+        user.update(opts) unless opts.empty?
+      end
+      if @user.persisted?
+        ModeratorMailer.with(user: @user).new_approval.deliver_later if SiteSettings.approve_signups && SiteSettings.email_configured?
+      end
+    else
+      build_resource
+      clean_up_passwords(resource)
+      flash[:alert] = t(".altcha_failed")
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -69,7 +83,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, creators_attributes: [:slug, :name]])
   end
 
   def configure_account_update_params
@@ -120,9 +134,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(resource)
+    SiteSettings.approve_signups ? root_path : welcome_path
+  end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)

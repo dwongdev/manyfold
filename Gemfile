@@ -154,9 +154,9 @@ gem "better_content_security_policy", "~> 0.1"
 
 gem "devise_zxcvbn", "~> 6.0"
 
-gem "federails", "~> 0.7"
+gem "federails", git: "https://gitlab.com/experimentslabs/federails.git", branch: "merge-contexts"
 gem "federails-moderation", "~> 0.3"
-gem "caber"
+gem "caber", github: "manyfold3d/caber"
 
 gem "nanoid", "~> 2.0"
 
@@ -201,3 +201,5 @@ gem "turbo-rails", "~> 2.0"
 gem "stimulus-rails", "~> 1.3"
 
 gem "scoped_search", "~> 4.2"
+
+gem "altcha-rails", "~> 0.0.6"
