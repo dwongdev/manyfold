@@ -19,14 +19,15 @@ class Components::BurgerMenu < Components::Base
         },
         aria: {
           expanded: false,
-          haspopup: true,
-          controls: "menu"
+          haspopup: "menu",
+          controls: "#{@id}-menu"
         },
         class: classes.join(" "),
         tabindex: 0 do
         Icon icon: "list", label: t("general.menu")
       end
       ul class: "dropdown-menu dropdown-menu-end",
+        id: "#{@id}-menu",
         role: "menu",
         aria: {labelledby: @id} do
         yield
