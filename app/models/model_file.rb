@@ -258,6 +258,14 @@ class ModelFile < ApplicationRecord
     end
   end
 
+  def create_derivatives!
+    ActiveRecord::Base.no_touching do
+      attachment_attacher&.create_derivatives
+    end
+  end
+
+  delegate :delete_derivatives, to: :attachment_attacher
+
   private
 
   def rescan_duplicates
