@@ -8,6 +8,8 @@ runs:
       uses: awalsh128/cache-apt-pkgs-action@latest
       with:
         packages: libassimp-dev
+    - name: Install imagemagick
+      uses: mfinelli/setup-imagemagick@e5a049b136cb833d5c0474b38d166f0bdb0e4497
     - name: Set up Ruby and install gems
       uses: ruby/setup-ruby@v1
       with:
