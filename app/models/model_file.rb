@@ -34,6 +34,7 @@ class ModelFile < ApplicationRecord
   validate :presupported_files_cannot_have_presupported_version
 
   after_commit :clear_presupported_relation, on: :update, if: :presupported_previously_changed?
+  after_commit :create_derivatives!, on: :update, if: :y_up_previously_changed?
 
   scope :without_special, -> { where.not(filename: SPECIAL_FILES) }
   scope :unsupported, -> { where(presupported: false) }
