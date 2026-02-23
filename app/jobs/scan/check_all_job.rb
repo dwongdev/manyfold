@@ -1,8 +1,5 @@
-class Scan::CheckAllJob < ApplicationJob
-  include JobIteration::Iteration
-
+class Scan::CheckAllJob < Upgrade::IterationJob
   queue_as :scan
-  unique :until_executed
 
   def build_enumerator(filter_params, instigator, cursor:)
     scope = instigator ?
