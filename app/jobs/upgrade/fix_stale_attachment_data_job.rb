@@ -1,8 +1,5 @@
-class Upgrade::FixStaleAttachmentDataJob < ApplicationJob
-  include JobIteration::Iteration
-
+class Upgrade::FixStaleAttachmentDataJob < Upgrade::IterationJob
   queue_as :low
-  unique :until_executed
 
   def scope
     where_clause = case DatabaseDetector.server

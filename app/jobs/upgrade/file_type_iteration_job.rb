@@ -1,8 +1,4 @@
-class Upgrade::FileTypeIterationJob < ApplicationJob
-  include JobIteration::Iteration
-
-  unique :until_executed
-
+class Upgrade::FileTypeIterationJob < Upgrade::IterationJob
   def mime_type
     raise NotImplementedError
   end
