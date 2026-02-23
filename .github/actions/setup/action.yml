@@ -7,7 +7,7 @@ runs:
     - name: Install system requirements
       uses: awalsh128/cache-apt-pkgs-action@latest
       with:
-        packages: libassimp-dev
+        packages: libassimp-dev f3d
     - name: Install imagemagick
       uses: mfinelli/setup-imagemagick@e5a049b136cb833d5c0474b38d166f0bdb0e4497
     - name: Set up Ruby and install gems
