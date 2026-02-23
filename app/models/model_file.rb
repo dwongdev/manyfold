@@ -258,6 +258,13 @@ class ModelFile < ApplicationRecord
     end
   end
 
+  def create_derivatives!
+    ApplicationRecord.no_touching do
+      attachment_attacher&.create_derivatives
+      save!(validate: false, touch: false)
+    end
+  end
+
   private
 
   def rescan_duplicates
