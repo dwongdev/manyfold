@@ -6,7 +6,8 @@ class ActivityController < ApplicationController
 
   EXCLUSIONS = [
     "CacheSweepJob",
-    "DownloadsSweepJob"
+    "DownloadsSweepJob",
+    "FaspClient::LifecycleAnnouncementJob"
   ]
 
   def index
