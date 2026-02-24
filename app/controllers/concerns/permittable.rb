@@ -9,19 +9,20 @@ module Permittable
     params.values.each do |param|
       if param.is_a?(ActionController::Parameters) && param.has_key?("caber_relations_attributes")
         param["caber_relations_attributes"].transform_values! do |value|
-          raise ActiveRecord::RecordNotFound if value["subject"].blank?
-          subject = case value["subject"]
-          when "role::member"
-            Role.find_by!(name: :member)
-          when "role::public"
-            nil
-          when Group::TYPED_ID_PATTERN
-            Group.find_by_typed_id(value["subject"], scope: policy_scope(Group))
-          else
-            User.match!(identifier: value["subject"], scope: policy_scope(User))
+          if value["subject"].present?
+            subject = case value["subject"]
+            when "role::member"
+              Role.find_by!(name: :member)
+            when "role::public"
+              nil
+            when Group::TYPED_ID_PATTERN
+              Group.find_by_typed_id(value["subject"], scope: policy_scope(Group))
+            else
+              User.match!(identifier: value["subject"], scope: policy_scope(User))
+            end
+            value["subject_id"] = subject&.id
+            value["subject_type"] = subject&.class&.name
           end
-          value["subject_id"] = subject&.id
-          value["subject_type"] = subject&.class&.name
           value
         rescue ActiveRecord::RecordNotFound
           nil
