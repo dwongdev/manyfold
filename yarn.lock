@@ -1380,12 +1380,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jquery@npm:^3.5.33":
-  version: 3.5.33
-  resolution: "@types/jquery@npm:3.5.33"
-  dependencies:
-    "@types/sizzle": "*"
-  checksum: 63a654cb5a141f794f8d2704891b851742bf40d1ef9c8ce7c38900b6e6aedded9324273d52a7a8ab5ddc17b395991b51e566119d4c14b160fef11342bdf18b3a
+"@types/jquery@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@types/jquery@npm:4.0.0"
+  checksum: d70744bde560144b758d25a5cfb43cd009c99afe41fb59ceebf405c0547a4ac41e29ccf1ac64b7f9b945c91ed7dac272f686208d4ffe3a6ff41d0d21c3693ac4
   languageName: node
   linkType: hard
 
@@ -1437,13 +1435,6 @@ __metadata:
   version: 7.3.13
   resolution: "@types/semver@npm:7.3.13"
   checksum: 00c0724d54757c2f4bc60b5032fe91cda6410e48689633d5f35ece8a0a66445e3e57fa1d6e07eb780f792e82ac542948ec4d0b76eb3484297b79bd18b8cf1cb0
-  languageName: node
-  linkType: hard
-
-"@types/sizzle@npm:*":
-  version: 2.3.3
-  resolution: "@types/sizzle@npm:2.3.3"
-  checksum: 586a9fb1f6ff3e325e0f2cc1596a460615f0bc8a28f6e276ac9b509401039dd242fa8b34496d3a30c52f5b495873922d09a9e76c50c2ab2bcc70ba3fb9c4e160
   languageName: node
   linkType: hard
 
@@ -4575,7 +4566,7 @@ __metadata:
     "@rails/ujs": ^7.1.600
     "@types/bootstrap": ^5.2.10
     "@types/i18n-js": ^4.0.1
-    "@types/jquery": ^3.5.33
+    "@types/jquery": ^4.0.0
     "@types/lodash": ^4.17.24
     "@types/node": ~24.10
     "@types/three": ^0.183.1
