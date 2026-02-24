@@ -6024,9 +6024,9 @@ __metadata:
   linkType: hard
 
 "sync-message-port@npm:^1.0.0":
-  version: 1.1.3
-  resolution: "sync-message-port@npm:1.1.3"
-  checksum: ad252d3e35b8f610efd728372edbe3ee6b51944b4c2ae4f7d07f2b25a2f7464afbd0e08557cb7efeb4e43c792b86f2f4532a1bdacef7ade0847b34c9788a485e
+  version: 1.2.0
+  resolution: "sync-message-port@npm:1.2.0"
+  checksum: ea6b41f8e2b9570497062b13392a6c09679d46cdbe87bb9eae40958cc21058f61be23c86b3b3c7de1ca5bb401e774b77bf19242448e285e1f7707726e8ca46c2
   languageName: node
   linkType: hard
 
