@@ -37,19 +37,6 @@ export class ObjectPreview {
     // Handle resize events
     window.addEventListener('resize', this.onResize.bind(this))
     this.onResize()
-    // Handle interaction events
-    const pointerEvents = ['pointerdown', 'pointermove', 'pointerup']
-    pointerEvents.forEach((eventName) => {
-      this.canvas.addEventListener(eventName, this.onPointerEvent.bind(this))
-    })
-    const keyEvents = ['keydown', 'keyup']
-    keyEvents.forEach((eventName) => {
-      this.canvas.addEventListener(eventName, this.onKeyEvent.bind(this))
-    })
-    const otherEvents = ['wheel', 'contextmenu']
-    otherEvents.forEach((eventName) => {
-      this.canvas.addEventListener(eventName, this.onEvent.bind(this))
-    })
     // Monitor visibility
     this.observer = new window.IntersectionObserver(
       this.onIntersectionChanged.bind(this), {}
@@ -62,6 +49,24 @@ export class ObjectPreview {
 
   disconnect (): void {
     this.worker.terminate()
+  }
+
+  captureMouse (): void {
+    // Handle interaction events
+    const pointerEvents = ['pointerdown', 'pointermove', 'pointerup']
+    pointerEvents.forEach((eventName) => {
+      this.canvas.addEventListener(eventName, this.onPointerEvent.bind(this))
+    })
+    const keyEvents = ['keydown', 'keyup']
+    keyEvents.forEach((eventName) => {
+      this.canvas.addEventListener(eventName, this.onKeyEvent.bind(this))
+    })
+    if (this.canvas.dataset.enablePanZoom === 'true') {
+      const otherEvents = ['wheel', 'contextmenu']
+      otherEvents.forEach((eventName) => {
+        this.canvas.addEventListener(eventName, this.onEvent.bind(this))
+      })
+    }
   }
 
   onIntersectionChanged (entries, observer): void {
@@ -111,6 +116,7 @@ export class ObjectPreview {
     this.progressBar?.parentElement?.remove()
     this.progressBar = null
     this.progressLabel = null
+    this.captureMouse()
   }
 
   onLoadError (): void {
