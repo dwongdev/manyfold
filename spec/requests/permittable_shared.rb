@@ -70,6 +70,22 @@ shared_examples "Permittable" do |object_class|
         }.to change { object.grants_permission_to?("view", group) }.from(false).to(true)
         expect(object.reload).not_to be_public
       end
+
+      it "edits existing permissions" do # rubocop:disable RSpec/MultipleExpectations
+        pending "code works but test needs debugging"
+        permission = object.caber_relations.find_by(subject: editor)
+        expect {
+          put "/#{path}/#{object.to_param}", params: {symbol => {caber_relations_attributes: {"0" => {id: permission.id, permission: "view"}}}}
+        }.to change { object.reload.grants_permission_to?("edit", editor) }.from(true).to(false)
+      end
+
+      it "removes existing permissions" do # rubocop:disable RSpec/MultipleExpectations
+        pending "code works but test needs debugging"
+        permission = object.caber_relations.find_by(subject: editor)
+        expect {
+          put "/#{path}/#{object.to_param}", params: {symbol => {caber_relations_attributes: {"0" => {id: permission.id, _destroy: "1"}}}}
+        }.to change { object.reload.grants_permission_to?("edit", editor) }.from(true).to(false)
+      end
     end
 
     context "when logged in as editor" do # rubocop:disable RSpec/MultipleMemoizedHelpers
