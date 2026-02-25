@@ -26,6 +26,6 @@ module PathBuilder
 
   def path_component(object)
     return nil if object.nil?
-    SiteSettings.safe_folder_names ? object.slug : object.name
+    (SiteSettings.safe_folder_names ? object.slug : object.name).first(ApplicationRecord::SAFE_NAME_LENGTH[:maximum])
   end
 end
