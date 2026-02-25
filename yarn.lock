@@ -841,17 +841,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nodelib/fs.stat@npm:2.0.5":
+"@nodelib/fs.stat@npm:2.0.5, @nodelib/fs.stat@npm:^2.0.2":
   version: 2.0.5
   resolution: "@nodelib/fs.stat@npm:2.0.5"
   checksum: 012480b5ca9d97bff9261571dbbec7bbc6033f69cc92908bc1ecfad0792361a5a1994bc48674b9ef76419d056a03efadfce5a6cf6dbc0a36559571a7a483f6f0
-  languageName: node
-  linkType: hard
-
-"@nodelib/fs.stat@npm:^2.0.2":
-  version: 2.0.4
-  resolution: "@nodelib/fs.stat@npm:2.0.4"
-  checksum: d0d9745f878816d041a8b36faf5797d88ba961274178f0ad1f7fe0efef8118ca9bd0e43e4d0d85a9af911bd35122ec1580e626a83d7595fc4d60f2c1c70e2665
   languageName: node
   linkType: hard
 
