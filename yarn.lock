@@ -4152,21 +4152,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-callable@npm:^1.1.4, is-callable@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "is-callable@npm:1.2.2"
-  checksum: 2bbf65bd5d39ccad3cae3954c482019466565a9b8027769a21cf2deebb25c195fb10f4974295b6118a815f6be3440bd7b7555ac742cf145f65a6a7d2484ebc3a
-  languageName: node
-  linkType: hard
-
-"is-callable@npm:^1.2.4":
-  version: 1.2.4
-  resolution: "is-callable@npm:1.2.4"
-  checksum: 1a28d57dc435797dae04b173b65d6d1e77d4f16276e9eff973f994eadcfdc30a017e6a597f092752a083c1103cceb56c91e3dadc6692fedb9898dfaba701575f
-  languageName: node
-  linkType: hard
-
-"is-callable@npm:^1.2.7":
+"is-callable@npm:^1.1.4, is-callable@npm:^1.2.2, is-callable@npm:^1.2.4, is-callable@npm:^1.2.7":
   version: 1.2.7
   resolution: "is-callable@npm:1.2.7"
   checksum: 61fd57d03b0d984e2ed3720fb1c7a897827ea174bd44402878e059542ea8c4aeedee0ea0985998aa5cc2736b2fa6e271c08587addb5b3959ac52cf665173d1ac
