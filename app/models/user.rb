@@ -38,7 +38,8 @@ class User < ApplicationRecord
       presence: true,
       uniqueness: {case_sensitive: false},
       format: {with: /\A[[:alnum:].\-_;]+\z/},
-      multimodel_uniqueness: {punctuation_sensitive: false, case_sensitive: false, check: FederailsCommon::FEDIVERSE_USERNAMES}
+      multimodel_uniqueness: {punctuation_sensitive: false, case_sensitive: false, check: FederailsCommon::FEDIVERSE_USERNAMES},
+      length: SAFE_NAME_LENGTH
     validates :email,
       presence: true,
       uniqueness: {case_sensitive: false},

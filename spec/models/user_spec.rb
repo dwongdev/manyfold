@@ -20,6 +20,10 @@ RSpec.describe User do
     expect(build(:user, username: "abc")).to be_valid
   end
 
+  it "doesn't allows > 225-character usernames" do
+    expect(build(:user, username: SecureRandom.alphanumeric(226))).not_to be_valid
+  end
+
   it "allows numbers in usernames" do
     expect(build(:user, username: "3jane")).to be_valid
   end

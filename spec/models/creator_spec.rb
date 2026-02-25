@@ -8,6 +8,14 @@ RSpec.describe Creator do
   it_behaves_like "Indexable"
   it_behaves_like "Linkable"
 
+  it "is not valid if name is too long" do
+    expect(build(:creator, name: SecureRandom.alphanumeric(226))).not_to be_valid
+  end
+
+  it "is not valid if slug is too long" do
+    expect(build(:creator, slug: SecureRandom.alphanumeric(226))).not_to be_valid
+  end
+
   context "when generating an ActivityStreams representation" do
     subject(:creator) { create(:creator, :public) }
 
