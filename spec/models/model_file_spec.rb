@@ -8,6 +8,10 @@ RSpec.describe ModelFile do
     expect(build(:model_file, filename: nil)).not_to be_valid
   end
 
+  it "is not valid if name is too long" do
+    expect(build(:model, name: SecureRandom.alphanumeric(256))).not_to be_valid
+  end
+
   it "is not valid without being part of a model" do
     expect(build(:model_file, model: nil)).not_to be_valid
   end

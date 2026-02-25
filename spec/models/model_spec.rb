@@ -18,6 +18,10 @@ RSpec.describe Model do
     expect(build(:model, name: nil)).not_to be_valid
   end
 
+  it "is not valid if name is too long" do
+    expect(build(:model, name: SecureRandom.alphanumeric(226))).not_to be_valid
+  end
+
   it "is not valid without being part of a library" do
     expect(build(:model, library: nil)).not_to be_valid
   end

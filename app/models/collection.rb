@@ -26,7 +26,7 @@ class Collection < ApplicationRecord
   has_many :collections, dependent: :nullify
   belongs_to :collection, optional: true
   belongs_to :creator, optional: true
-  validates :name, uniqueness: {case_sensitive: false}
+  validates :name, uniqueness: {case_sensitive: false}, length: SAFE_NAME_LENGTH
   validates :public_id, multimodel_uniqueness: {punctuation_sensitive: false, case_sensitive: false, check: FederailsCommon::FEDIVERSE_USERNAMES}
   validates :collection_id, exclusion: {in: ->(it) { Array(it.id) }}
 

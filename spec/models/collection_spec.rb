@@ -10,6 +10,10 @@ RSpec.describe Collection do
   it_behaves_like "IndexableWithCollectionDelegation"
   it_behaves_like "Linkable"
 
+  it "is not valid if name is too long" do
+    expect(build(:collection, name: SecureRandom.alphanumeric(226))).not_to be_valid
+  end
+
   context "when creating a collection" do
     it "doesn't queue any activity jobs" do
       expect {

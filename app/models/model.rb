@@ -55,7 +55,7 @@ class Model < ApplicationRecord
   after_save :write_datapackage_later, if: :was_changed?
   after_commit :check_for_problems_later, on: :update
 
-  validates :name, presence: true, on: [:create, :update, :single_upload]
+  validates :name, presence: true, length: SAFE_NAME_LENGTH, on: [:create, :update, :single_upload] # 225 because max filename length is 255, and we use name to generate them. Also, it seems plenty.
   validates :path, presence: true, uniqueness: {scope: :library}, on: [:create, :update]
   validate :check_for_submodels, on: :update, if: :need_to_move_files?
   validate :destination_is_vacant, on: :update, if: :need_to_move_files?

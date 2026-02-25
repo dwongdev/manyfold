@@ -19,8 +19,8 @@ class Creator < ApplicationRecord
   has_many :collections, dependent: :nullify
   has_many :groups, dependent: :destroy
 
-  validates :name, presence: true, uniqueness: {case_sensitive: false}
-  validates :slug, presence: true, multimodel_uniqueness: {punctuation_sensitive: false, case_sensitive: false, check: FederailsCommon::FEDIVERSE_USERNAMES}, format: {with: /\A[[:alnum:]\-_]+\z/}
+  validates :name, presence: true, uniqueness: {case_sensitive: false}, length: SAFE_NAME_LENGTH
+  validates :slug, presence: true, multimodel_uniqueness: {punctuation_sensitive: false, case_sensitive: false, check: FederailsCommon::FEDIVERSE_USERNAMES}, format: {with: /\A[[:alnum:]\-_]+\z/}, length: SAFE_NAME_LENGTH
 
   # Explicitly explain serialization for MariaDB
   serialize :avatar_data, coder: CrossDbJsonSerializer
