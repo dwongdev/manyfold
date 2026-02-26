@@ -4765,9 +4765,9 @@ __metadata:
   linkType: hard
 
 "make-plural@npm:*":
-  version: 7.3.0
-  resolution: "make-plural@npm:7.3.0"
-  checksum: bb39b4b77533f0d5fb94eec128340b54dda8c1707d6b0a98c148e5d7bc23094e123f88275a61573fa31dc2f5d7352215cee0df523cd69b5d8fcb3969a2bcf8f8
+  version: 8.1.0
+  resolution: "make-plural@npm:8.1.0"
+  checksum: 85988e7eb63587fc7ca5da0d8628ba52caf56599c8c0563acecac8f6d92da6627d7a32b84d5f422182652576e26f9906c3bcb78a73884ac4b1e04cea04c6eaf4
   languageName: node
   linkType: hard
 
