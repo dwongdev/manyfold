@@ -309,4 +309,51 @@ RSpec.describe "Model Files" do
       end
     end
   end
+
+  context "without permission on a model", :as_contributor do
+    let(:forbidden_model) { create(:model) }
+    let(:forbidden_file) { create(:model_file, model: forbidden_model) }
+
+    before do
+      allow(SiteSettings).to receive(:default_viewer_role).and_return(:private)
+    end
+
+    it "cannot view the file" do
+      get model_model_file_path(forbidden_model, forbidden_file)
+      expect(response).to have_http_status :forbidden
+    end
+
+    it "cannot edit the file" do
+      get edit_model_model_file_path(forbidden_model, forbidden_file)
+      expect(response).to have_http_status :forbidden
+    end
+
+    it "cannot update the file" do
+      put model_model_file_path(forbidden_model, forbidden_file, params: {model_file: {printed: "1"}})
+      expect(response).to have_http_status :forbidden
+    end
+
+    it "cannot convert file to different format" do # rubocop:disable RSpec/MultipleExpectations
+      params = {convert: {id: forbidden_file.to_param, to: "threemf"}}
+      post model_model_files_path(forbidden_model, params: params)
+      expect(Analysis::FileConversionJob).not_to have_been_enqueued
+      expect(response).to have_http_status :forbidden
+    end
+
+    it "cannot delete the file" do
+      delete model_model_file_path(forbidden_model, forbidden_file)
+      expect(response).to have_http_status :forbidden
+    end
+
+    it "cannot bulk edit files" do
+      get bulk_edit_model_model_files_path(forbidden_model)
+      expect(response).to have_http_status :forbidden
+    end
+
+    it "cannot bulk update files" do
+      params = {model_files: {forbidden_file.public_id => "1", :printed => "1"}}
+      patch bulk_update_model_model_files_path(forbidden_model, params: params)
+      expect(response).to have_http_status :forbidden
+    end
+  end
 end
