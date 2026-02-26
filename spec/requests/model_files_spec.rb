@@ -135,6 +135,11 @@ RSpec.describe "Model Files" do
     end
 
     describe "GET /models/:model_id/model_files/:id", :as_member do
+      it "renders file details page" do
+        get model_model_file_path(model, stl_file)
+        expect(response).to have_http_status :success
+      end
+
       describe "GET a model file in its original file format" do
         before do
           get model_model_file_path(model, stl_file, format: :stl)
