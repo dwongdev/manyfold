@@ -34,9 +34,10 @@ class ModelFilesController < ApplicationController
   end
 
   def create
-    authorize @model
+    authorize @model, :edit?
     if params[:convert]
       file = ModelFile.find_param(params[:convert][:id])
+      authorize(file, :show?)
       file.convert_later params[:convert][:to]
       redirect_back_or_to [@model, file], notice: t(".conversion_started")
     elsif !(p = upload_params).empty?
@@ -84,10 +85,12 @@ class ModelFilesController < ApplicationController
   end
 
   def bulk_edit
+    authorize @model, :edit?
     @files = policy_scope(@model.model_files.without_special)
   end
 
   def bulk_update
+    authorize @model, :edit?
     hash = bulk_update_params
     ids_to_update = params[:model_files].keep_if { |key, value| value == "1" }.keys
     files = policy_scope(@model.model_files.without_special).where(public_id: ids_to_update)
