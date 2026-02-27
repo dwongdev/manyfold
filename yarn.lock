@@ -3245,11 +3245,11 @@ __metadata:
   linkType: hard
 
 "fastq@npm:^1.6.0":
-  version: 1.11.0
-  resolution: "fastq@npm:1.11.0"
+  version: 1.20.1
+  resolution: "fastq@npm:1.20.1"
   dependencies:
-    reusify: "npm:^1.0.4"
-  checksum: 9db0ceea9280c5f207da40c562a4e574913c18933cd74b880b01bf8e81a9a6e368ec71e89c9c1b9f4066d0275cc22600efd6dde87f713217acbf67076481734b
+    reusify: ^1.0.4
+  checksum: 49128edbf05e682bee3c1db3d2dfc7da195469065ef014d8368c555d829932313ae2ddf584bb03146409b0d5d9fdb387c471075483a7319b52f777ad91128ed8
   languageName: node
   linkType: hard
 
