@@ -311,7 +311,6 @@ ja:
       instance_heading: インスタンスの詳細
       issues: 問題を報告する
       open_source_html: <a href="https://github.com/manyfold3d/manyfold/blob/main/LICENSE.md" target="_blank" rel="license">MITライセンスの</a><a href="https://github.com/manyfold3d/manyfold" target="_blank">オープンソース</a>です。
-      powered_by_html: 概要 <a href="https://manyfold.app">[%{name}］</a>
       sponsor: 発明をスポンサー
       support: インスタンスをスポンサー
       version: バージョン

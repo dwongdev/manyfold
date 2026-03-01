@@ -311,7 +311,6 @@ fr:
       instance_heading: Détails de l'instance
       issues: Problèmes
       open_source_html: Open Source sous <a href="https://github.com/manyfold3d/manyfold/blob/main/LICENSE.md" target="_blank" rel="license">licence MIT.</a>
-      powered_by_html:
       sponsor: Sponsor
       support:
       version: Version
